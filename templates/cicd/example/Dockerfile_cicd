@@ -1,0 +1,16 @@
+# VERSION 1.0
+
+FROM registry.9418.club/os/svi-centos:latest
+MAINTAINER dongcj "dongchaojun@svi-tech.com.cn"
+
+
+# install the pg client(change to your logic)
+RUN yum -y install postgresql openssl
+
+# change path to app home
+COPY update_version.sh   /usr/bin/
+RUN chmod 750 /usr/bin/update_version.sh
+
+WORKDIR /tmp
+
+CMD update_version.sh -a ${ACTION} -n ${MODULE_NAME} -v ${MODULE_VERSION} -p ${GIT_PROJECT} -h ${GIT_SERVER_DOMAIN} -u ${GIT_USER} -P ${GIT_PVALUE}

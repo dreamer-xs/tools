@@ -1,0 +1,16 @@
+version: '2'
+services:
+  wisecloud:
+    image: rancher/lb-service-haproxy:v0.5.9
+    ports:
+    - 7000:7000/tcp
+    labels:
+      io.rancher.container.agent.role: environmentAdmin
+      io.rancher.container.create_agent: 'true'
+  redis:
+    image: registry.9418.club/tools/svi-redis
+    stdin_open: true
+    tty: true
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.scheduler.affinity:host_label: redis_host=true

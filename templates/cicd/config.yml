@@ -1,0 +1,9 @@
+name: cicd
+description: |
+    cicd for wisecloud
+#note:default version : 1.0.0
+version : authcenter
+category: cicd
+maintainer: xushun@svi-tech.com.cn
+license: No
+projectURL: http://www.svi-tech.com.cn

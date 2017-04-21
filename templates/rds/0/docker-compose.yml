@@ -1,0 +1,23 @@
+rds:
+    image: jonathanbaraldi/rds:3
+    restart: always
+    environment:
+        - USER=${USER} 
+        - PASS=${PASS}
+    links:
+        - dind
+    volumes:
+        - dev:/home/dev
+        - data:/data
+    ports:
+        - 6969
+
+dind:
+    image: jonathanbaraldi/rds_dind:1
+    restart: always
+    privileged: yes
+    volumes:
+        - dev:/home/dev
+        - data:/data
+    ports:
+        - 8888

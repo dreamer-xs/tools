@@ -1,0 +1,8 @@
+name: redis
+description: |
+    redis for wisecloud
+version : 1.0.0
+category: wisecloud
+maintainer: xushun@svi-tech.com.cn
+license: No
+projectURL: http://www.svi-tech.com.cn

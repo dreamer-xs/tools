@@ -1,0 +1,49 @@
+.catalog:
+  #note:module name
+  name: redis 
+  #note:module version
+  version: 1.0.0
+  description: |
+    redis for wisecloud
+  #note:module mininum version
+  #minimum_rancher_version: v1.1.0
+  maintainer: "xushun@svi.tech.com.cn"
+  uuid: redis-1.0.0
+  questions:
+    - variable: "redis_password"
+      description: "redis password"
+      label: "Redis Password:"
+      required: true
+      default: 123456
+      type: "string"
+    - variable: "REDIS_PORT"
+      description: "redis port"
+      label: "Redis Port:"
+      required: true
+      default: 7000
+      type: "int"
+version: '2'
+services:
+  wisecloud:
+    scale: 1
+    start_on_create: true
+    lb_config:
+      certs: []
+      port_rules:
+      - priority: 1
+        protocol: tcp
+        service: redis
+        source_port: 7000
+        target_port: 7000
+    health_check:
+      healthy_threshold: 2
+      response_timeout: 2000
+      port: 42
+      unhealthy_threshold: 3
+      interval: 2000
+      strategy: recreate
+  redis:
+    scale: 1
+    metadata:
+        REDIS_PASSWORD: ${redis_password}
+    start_on_create: true

@@ -1,0 +1,81 @@
+.catalog:
+  #note:module name
+  name: cicd
+  #note:module version
+  version: cas
+  description: |
+    cicd for wisecloud
+  #note:module mininum version
+  #minimum_rancher_version: v1.1.0
+  maintainer: "xushun@svi.tech.com.cn"
+  uuid: cicd-cas
+  questions:
+    - variable: "action"
+      description: "版本控制"
+      label: "请选择发布还是删除:"
+      default: add
+      type: enum
+      options:
+        - add
+        - del
+    - variable: "git_project"
+      description: "发布的应用商店"
+      label: "请选择发布的应用商店:"
+      default: wisecloud-test
+      type: enum
+      options:
+        - wisecloud-test
+        - wisecloud-pro
+   #- variable: "module_name"
+   #  description: "module name"
+   #  label: "Module name:"
+   #  default: 
+   #  type: enum
+   #  options:
+   #    - cas
+   #    - dcmp
+   #    - cas
+   #    - ues
+    - variable: "module_version"
+      description: "module version"
+      label: "请输入网元模块版本号:"
+      required: true
+      default:
+      type: "string"
+    - variable: "web_version"
+      description: "web version"
+      label: "请输入子网元Web版本号:"
+      required: true
+      default:
+      type: "string"
+    - variable: "server_version"
+      description: "server version"
+      label: "请输入子网元Server版本号:"
+      required: true
+      default:
+      type: "string"
+   #- variable: "git_server_domain"
+   #  description: "git server domain"
+   #  label: "Git Server Domain:"
+   #  default: 192.168.1.114
+   #  type: enum
+   #  options:
+   #    - 192.168.1.114
+   #- variable: "git_user"
+   #  description: "git user"
+   #  label: "Git User:"
+   #  default: svicloud
+   #  type: enum
+   #  options:
+   #    - svicloud
+   #- variable: "git_password"
+   #  description: "git password"
+   #  label: "Git Password:"
+   #  required: true
+   #  default: mogK+vXX
+   #  type: "string"
+version: '2'
+services:
+  cicd:
+    scale: 1
+    start_on_create: true

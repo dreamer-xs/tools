@@ -1,0 +1,19 @@
+version: '2'
+services:
+    cicd:
+      image: registry.9418.club/tools/cicd:latest
+      environment:
+        - ACTION=${action}
+        - MODULE_NAME=${module_name}
+        - MODULE_VERSION=${module_version}
+        - GIT_PROJECT=${git_project}
+        - GIT_SERVER_DOMAIN=${git_server_domain}
+        - GIT_USER=${git_user}
+        - GIT_PVALUE=${git_password}
+      stdin_open: true
+      network_mode: host
+      tty: true
+      labels:
+        io.rancher.container.start_once: 'true'
+        io.rancher.container.dns: 'true'
+        io.rancher.container.pull_image: always
