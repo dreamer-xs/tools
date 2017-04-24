@@ -1,28 +1,28 @@
 version: '2'
-gitlab-server:
-  ports:
-  - ${ssh_port}:22/tcp
-  - ${http_port}:80/tcp
-  - ${https_port}:443/tcp
-  labels:
-    io.rancher.sidekicks: gitlab-data
-    io.rancher.scheduler.affinity:host_label: git=true
-  hostname: ${gitlab_hostname}
-  image: gitlab/gitlab-ce:latest
-  volumes_from:
-  - gitlab-data
-  environment:
-    GITLAB_OMNIBUS_CONFIG: |
-      external_url '${gitlab_omnipus_prefix}${gitlab_hostname}'
-
-gitlab-data:
-  labels:
-    io.rancher.container.start_once: 'true'
-  entrypoint:
-  - /bin/true
-  hostname: gitdata
-  image: gitlab/gitlab-ce:latest
-  volumes:
-    - /opt/svicloud/tools/gitlab/etc/gitlab:/etc/gitlab
-    - /opt/svicloud/tools/gitlab/var/log/gitlab:/var/log/gitlab
-    - /opt/svicloud/tools/gitlab/var/opt/gitlab:/var/opt/gitlab
+services:
+  gitlab-server:
+    image: gitlab/gitlab-ce:latest
+    hostname: ${gitlab_hostname}
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url '${gitlab_omnipus_prefix}${gitlab_hostname}'
+    volumes_from:
+    - gitlab-data
+    ports:
+    - ${ssh_port}:22/tcp
+    - ${http_port}:80/tcp
+    - ${https_port}:443/tcp
+    labels:
+      io.rancher.scheduler.affinity:host_label: git=true
+      io.rancher.sidekicks: gitlab-data
+  gitlab-data:
+    image: gitlab/gitlab-ce:latest
+    hostname: gitdata
+    entrypoint:
+    - /bin/true
+    volumes:
+      - /opt/svicloud/tools/gitlab/etc/gitlab:/etc/gitlab
+      - /opt/svicloud/tools/gitlab/var/log/gitlab:/var/log/gitlab
+      - /opt/svicloud/tools/gitlab/var/opt/gitlab:/var/opt/gitlab
+    labels:
+      io.rancher.container.start_once: 'true'
