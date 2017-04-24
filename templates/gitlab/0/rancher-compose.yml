@@ -11,13 +11,13 @@
       description: "Gitlab hostname (without uri scheme http:// or https://)"
       label: "Hostname:"
       required: true
-      default: "git.example.com"
+      default: "git.svicloud.com"
       type: "string"
     - variable: "gitlab_omnipus_prefix"
       label: "Gitlab external_url prefix:"
       description: |
         This is needed for the docker-compose file to set the correct external_url
-      default: 'https://'
+      default: 'http://'
       required: true
       type: "string"
       options:
